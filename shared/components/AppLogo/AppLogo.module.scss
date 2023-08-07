@@ -1,0 +1,13 @@
+@import '@/theme/variables/measures.scss';
+
+.app-logo {
+  width: auto;
+  height: auto;
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .app-logo {
+    width: 144px;
+    height: 32px;
+  }
+}

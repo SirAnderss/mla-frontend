@@ -17,14 +17,13 @@ describe('api calls handler', () => {
     } as Response);
 
     await getDataFromAPI({
-      method: 'POST',
       url: 'http://localhost:3000',
     });
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     expect(global.fetch).toHaveBeenCalledWith('http://localhost:3000', {
-      method: 'POST',
+      method: 'GET',
       headers,
       body: undefined,
     });

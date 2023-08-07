@@ -16,30 +16,26 @@ export function useWindowSize() {
   useEffect(() => {
     // Handler to call on window resize
     function handleResize() {
-      if (typeof window !== 'undefined') {
-        // Set window width/height to state
-        const { width, height } = document.body.getBoundingClientRect();
+      // Set window width/height to state
+      const { width, height } = document.body.getBoundingClientRect();
 
-        setWindowSize({
-          width,
-          height,
-        });
-      }
-      // Add event listener
-      window.addEventListener('resize', handleResize);
-      // Call handler right away so state gets updated with initial window size
+      setWindowSize({
+        width,
+        height,
+      });
     }
 
-    handleResize();
-    // Remove event listener on cleanup
+    // Add event listener
+    window.addEventListener('resize', handleResize);
 
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
     return () => {
-      if (typeof window !== 'undefined') {
-        return window.removeEventListener('resize', handleResize);
-      }
+      return window.removeEventListener('resize', handleResize);
     };
   }, []);
-  // Empty array ensures that effect is only run on mount
 
   return windowSize;
 }

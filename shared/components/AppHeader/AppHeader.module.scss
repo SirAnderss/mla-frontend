@@ -1,0 +1,25 @@
+@import '@/theme/variables/measures.scss';
+@import '@/theme/variables/colors.scss';
+
+.app-header {
+  background-color: $primary-yellow;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: $gap;
+    padding: 0 $gap;
+    height: 48px;
+  }
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .app-header {
+    &__container {
+      max-width: $app-max-width;
+      height: 54px;
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+}

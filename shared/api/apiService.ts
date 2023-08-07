@@ -1,12 +1,12 @@
 type TParams = {
   url: string;
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   body?: string;
 };
 
 export async function getDataFromAPI<T>({
   url,
-  method,
+  method = 'GET',
   body,
 }: TParams): Promise<T> {
   const headers = new Headers();

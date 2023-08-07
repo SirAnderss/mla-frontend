@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import '@/theme/global.scss';
+import AppHeader from '@/shared/components/AppHeader';
+import { AppContextProvider } from '@/shared/context/AppState';
 
 export const metadata: Metadata = {
   title: 'Mercado Libre',
@@ -14,10 +16,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <header>
-          <h1>Im header</h1>
-        </header>
-        <main>{children}</main>
+        <AppContextProvider>
+          <AppHeader />
+          <main>{children}</main>
+        </AppContextProvider>
       </body>
     </html>
   );

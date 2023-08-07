@@ -1,3 +1,5 @@
+import BodyContainer from '@/shared/components/BodyContainer';
+
 export default function Home() {
-  return <h1>Im Body</h1>;
+  return <BodyContainer />;
 }

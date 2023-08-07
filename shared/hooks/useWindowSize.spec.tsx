@@ -14,7 +14,7 @@ type HookResult = RenderHookResult<
   undefined
 >;
 
-describe('useWindowSize', () => {
+describe('useWindowSize Hook', () => {
   let hook: HookResult | undefined;
 
   afterEach(() => {
