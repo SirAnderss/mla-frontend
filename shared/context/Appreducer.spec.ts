@@ -1,3 +1,4 @@
+import { FetchingStatus } from '../enums/Fetching';
 import { actionTypes, reducer } from './AppReducer';
 import { ContextState } from './types';
 
@@ -7,7 +8,8 @@ describe('reducer', () => {
   beforeEach(() => {
     initialState = {
       products: [],
-      isLoading: false,
+      categories: [],
+      isLoading: FetchingStatus.IDDLE,
     };
   });
 
@@ -26,8 +28,17 @@ describe('reducer', () => {
     expect(result).toEqual({ ...initialState, products });
   });
 
+  test('handles the categories action', () => {
+    const categories = ['Category 1', 'Category 2'];
+    const action = { type: 'categories', payload: categories };
+
+    const result = reducer(initialState, action);
+
+    expect(result).toEqual({ ...initialState, categories });
+  });
+
   test('handles the isLoading action', () => {
-    const isLoading = true;
+    const isLoading = FetchingStatus.FETCHING;
     const action = { type: 'isLoading', payload: isLoading };
 
     const result = reducer(initialState, action);
@@ -61,6 +72,10 @@ describe('reducer', () => {
 
     const state = reducer(initialState, action);
 
-    expect(state).toEqual({ isLoading: false, products: payload });
+    expect(state).toEqual({
+      isLoading: FetchingStatus.IDDLE,
+      categories: [],
+      products: payload,
+    });
   });
 });

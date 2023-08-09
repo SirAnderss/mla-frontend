@@ -1,10 +1,11 @@
 'use client';
 
-import { IProductItem } from '@/shared/types/types';
+import { IFetchingStatus, IProductItem } from '@/shared/types/types';
 import { ActionType, ContextState } from './types';
 
 const actionTypes = {
   products: 'products',
+  categories: 'categories',
   isLoading: 'isLoading',
 };
 
@@ -25,7 +26,13 @@ function reducer(state: ContextState, action: ActionType): ContextState {
     case actionTypes.isLoading:
       return {
         ...state,
-        isLoading: payload as boolean,
+        isLoading: payload as IFetchingStatus,
+      };
+
+    case actionTypes.categories:
+      return {
+        ...state,
+        categories: payload as string[],
       };
 
     default:

@@ -2,10 +2,12 @@
 
 import { createContext, Dispatch } from 'react';
 import { ActionType, ContextState } from './types';
+import { FetchingStatus } from '../enums/Fetching';
 
 const initialState: ContextState = {
   products: [],
-  isLoading: false,
+  categories: [],
+  isLoading: FetchingStatus.IDDLE,
 };
 
 const AppContext = createContext<{

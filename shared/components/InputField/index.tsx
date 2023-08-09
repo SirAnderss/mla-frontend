@@ -14,6 +14,7 @@ const Input = (props: InputFieldProps) => {
     value,
     setValue,
     iconClick,
+    onKeyUp,
     type = 'text',
   } = props;
 
@@ -31,6 +32,7 @@ const Input = (props: InputFieldProps) => {
         className={styles['input-field__input']}
         value={value}
         onChange={handleInputChange}
+        onKeyUp={onKeyUp}
       />
       {icon && (
         <SearchIcon

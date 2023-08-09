@@ -1,8 +1,9 @@
-import { IProductItem } from '@/shared/types/types';
+import { IFetchingStatus, IProductItem } from '@/shared/types/types';
 
 type ContextState = {
   products: IProductItem[];
-  isLoading: boolean;
+  categories: string[];
+  isLoading: IFetchingStatus;
 };
 
 type ActionType = {

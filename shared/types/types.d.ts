@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 interface IQuery {
   author: IAuthor;
   categories: string[];
@@ -48,4 +46,12 @@ interface IProviderAttributes {
   value_name: string;
 }
 
-export type { IQuery, IProductDetail, IProductItem, IProvider };
+type IFetchingStatus = (typeof FetchingStatus)[keyof typeof FetchingStatus];
+
+export type {
+  IQuery,
+  IProductDetail,
+  IProductItem,
+  IProvider,
+  IFetchingStatus,
+};
