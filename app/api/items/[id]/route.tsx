@@ -61,7 +61,7 @@ export async function GET(
       condition: itemResponse.condition,
       free_shipping: itemResponse.shipping.free_shipping,
       id: itemResponse.id,
-      picture: itemResponse.thumbnail,
+      picture: itemResponse.pictures?.[0].url ?? itemResponse.thumbnail,
       price: {
         amount: itemResponse.price,
         currency: itemResponse.currency_id,

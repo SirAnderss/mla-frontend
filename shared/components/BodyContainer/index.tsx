@@ -1,18 +1,18 @@
 'use client';
 
-import { AppContext } from '@/shared/context/AppContext';
-import { useContext } from 'react';
-import { Loader } from '../Loader';
-import { FetchingStatus } from '@/shared/enums/Fetching';
+import { CategorySlug } from '@/shared/components/CategorySlug';
+import { ProductsSection } from '../ProductsSection';
+import { IQuery } from '@/shared/types/types';
 
-export default function BodyContainer() {
-  const {
-    state: { isLoading },
-  } = useContext(AppContext);
+import styles from './BodyContainer.module.scss';
 
-  if (isLoading === FetchingStatus.FETCHING) {
-    return <Loader />;
-  }
+type BodyContainerProps = Omit<IQuery, 'author'>;
 
-  return <div>BodyContainer</div>;
+export function BodyContainer({ categories, items }: BodyContainerProps) {
+  return (
+    <div className={styles['body-container']} data-testid='app-products'>
+      {categories.length ? <CategorySlug categories={categories} /> : null}
+      {items.length ? <ProductsSection products={items} /> : null}
+    </div>
+  );
 }

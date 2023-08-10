@@ -9,7 +9,7 @@
     align-items: center;
     gap: $gap;
     padding: 0 $gap;
-    height: 48px;
+    height: 3.5rem;
   }
 }
 
@@ -17,7 +17,7 @@
   .app-header {
     &__container {
       max-width: $app-max-width;
-      height: 54px;
+      height: 4rem;
       margin: 0 auto;
       padding: 0;
     }

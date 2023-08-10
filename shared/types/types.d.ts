@@ -5,7 +5,7 @@ interface IQuery {
 }
 
 interface IProductDetail extends Omit<IQuery, 'items'> {
-  item: IProductItemDetail;
+  item: IProductItemDetail | null;
 }
 
 interface IAuthor {
@@ -54,4 +54,5 @@ export type {
   IProductItem,
   IProvider,
   IFetchingStatus,
+  IProductItemDetail,
 };

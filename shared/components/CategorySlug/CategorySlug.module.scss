@@ -1,0 +1,14 @@
+@import '@/theme/variables/colors.scss';
+@import '@/theme/variables/measures.scss';
+
+.slug-container {
+  grid-area: 1 / 1 / 1 / 13;
+  color: $gray;
+  padding: 0 $gap;
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .slug-container {
+    padding: 0;
+  }
+}

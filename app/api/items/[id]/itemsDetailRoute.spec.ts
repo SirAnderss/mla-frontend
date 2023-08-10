@@ -22,6 +22,7 @@ const mockResponseItem = {
   currency_id: 'ARS',
   price: 100,
   thumbnail: 'https://example.com/product1.jpg',
+  pictures: [{ url: 'https://example.com/product1.jpg' }],
   condition: 'new',
   shipping: { free_shipping: true },
   sold_quantity: 100,

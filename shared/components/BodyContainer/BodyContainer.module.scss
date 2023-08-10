@@ -1,0 +1,15 @@
+@import '@/theme/variables/measures.scss';
+
+.body-container {
+  grid-area: 1 / 1 / 1 / 13;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  margin: $gap 0;
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .body-container {
+    padding: 0 $gap;
+  }
+}

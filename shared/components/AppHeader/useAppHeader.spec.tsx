@@ -1,30 +1,30 @@
 import { cleanup, renderHook, act } from '@testing-library/react';
 import { useAppHeader } from './useAppHeader';
-import { AppContext } from '@/shared/context/AppContext';
-import { FetchingStatus } from '@/shared/enums/Fetching';
-import * as api from '@/shared/api/apiService';
+import { useRouter } from 'next/navigation';
 
 jest.mock('../../api/apiService');
+jest.mock('next/navigation', () => ({
+  ...require('next-router-mock'),
+  useRouter: jest.fn(),
+}));
 
-const mockDispatch = jest.fn();
-const initialState = {
-  isLoading: FetchingStatus.IDDLE,
-  products: [],
-  categories: [],
-};
+const mockUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <AppContext.Provider value={{ state: initialState, dispatch: mockDispatch }}>
-    {children}
-  </AppContext.Provider>
-);
+const push = jest.fn();
 
 describe('AppHeader hook', () => {
-  afterEach(() => {
-    cleanup();
-    jest.clearAllMocks();
-    jest.resetModules();
+  beforeEach(() => {
+    mockUseRouter.mockImplementation(() => ({
+      replace: jest.fn(),
+      back: jest.fn(),
+      forward: jest.fn(),
+      refresh: jest.fn(),
+      push,
+      prefetch: jest.fn(),
+    }));
   });
+
+  afterEach(cleanup);
 
   test('should return default values', async () => {
     const { result, unmount } = renderHook(() => useAppHeader());
@@ -49,97 +49,43 @@ describe('AppHeader hook', () => {
     expect(result.current.query).toEqual('test');
   });
 
-  test('should calls the searchItems function when handleClickQuery is called', () => {
-    jest
-      .spyOn(api, 'getDataFromAPI')
-      .mockImplementation(() => Promise.resolve({ items: [], categories: [] }));
-
-    const { result } = renderHook(() => useAppHeader(), { wrapper });
+  test('should call push', async () => {
+    const { result } = renderHook(() => useAppHeader());
 
     act(() => {
-      result.current.setQuery('test');
       result.current.handleClickQuery();
     });
 
-    expect(mockDispatch).toBeCalledWith({
-      payload: FetchingStatus.FETCHING,
-      type: 'isLoading',
-    });
+    expect(push).toBeCalledWith('/items?q=');
   });
 
-  test('should calls the searchItems function when handleKeyPress is called', () => {
-    jest
-      .spyOn(api, 'getDataFromAPI')
-      .mockImplementation(() => Promise.resolve({ items: [], categories: [] }));
-
-    const { result } = renderHook(() => useAppHeader(), { wrapper });
+  test('calls searchItems when handleClickQuery is called', async () => {
+    const { result } = renderHook(() => useAppHeader());
 
     act(() => {
       result.current.setQuery('test');
-      result.current.handleKeyPress({ key: 'Enter' } as any);
     });
 
-    expect(mockDispatch).toBeCalledWith({
-      payload: FetchingStatus.FETCHING,
-      type: 'isLoading',
+    act(() => {
+      result.current.handleClickQuery();
     });
+
+    expect(push).toBeCalledWith('/items?q=test');
   });
 
-  test('should set products when api call returns some product', () => {
-    const items = [
-      { id: 'MLA123', title: 'Product 1' },
-      { id: 'MLA223', title: 'Product 2' },
-      { id: 'MLA323', title: 'Product 3' },
-    ];
-    jest.spyOn(api, 'getDataFromAPI').mockImplementation(() =>
-      Promise.resolve({
-        items,
-        categories: [],
-      })
-    );
-
-    const { result } = renderHook(() => useAppHeader(), { wrapper });
+  test('calls searchItems when handleKeyPress is called with Enter key', async () => {
+    const { result } = renderHook(() => useAppHeader());
 
     act(() => {
       result.current.setQuery('test');
-      result.current.handleClickQuery();
     });
-
-    expect(mockDispatch).toBeCalled();
-  });
-
-  test('should set categories when api call returns some category', () => {
-    const categories = ['Category 1', 'Category 2', 'Category 3'];
-
-    jest.spyOn(api, 'getDataFromAPI').mockImplementation(() =>
-      Promise.resolve({
-        items: [],
-        categories,
-      })
-    );
-
-    const { result } = renderHook(() => useAppHeader(), { wrapper });
 
     act(() => {
-      result.current.setQuery('test');
-      result.current.handleClickQuery();
+      result.current.handleKeyPress({
+        key: 'Enter',
+      } as React.KeyboardEvent<HTMLInputElement>);
     });
 
-    expect(mockDispatch).toBeCalled();
-  });
-
-  test('should dispatch error if api call throw', async () => {
-    jest
-      .spyOn(api, 'getDataFromAPI')
-      .mockImplementation(() => Promise.reject(new Error('Error')));
-
-    const { result } = renderHook(() => useAppHeader(), { wrapper });
-
-    await act(async () => {
-      result.current.setQuery('test');
-      result.current.handleClickQuery();
-    });
-
-    expect(mockDispatch).toBeCalled();
+    expect(push).toBeCalledWith('/items?q=test');
   });
 });

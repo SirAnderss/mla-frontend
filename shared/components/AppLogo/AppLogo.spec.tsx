@@ -1,6 +1,8 @@
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, render, fireEvent } from '@testing-library/react';
 import { AppLogo } from '.';
 import { useAppLogo } from './useAppLogo';
+import mockRouter from 'next-router-mock';
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 
 jest.mock('./useAppLogo');
 jest.mock('next/image', () => ({
@@ -45,5 +47,18 @@ describe('AppLogo Component', () => {
     const logo = queryByTestId('logo-image');
 
     expect(logo).toBeNull();
+  });
+
+  it('calls push to product detail when the product card is clicked', async () => {
+    mockUseAppLogo.mockReturnValue(mockHook);
+    const { getByTestId } = render(<AppLogo />, {
+      wrapper: MemoryRouterProvider,
+    });
+
+    const logo = getByTestId('logo-image');
+
+    fireEvent.click(logo);
+
+    expect(mockRouter.asPath).toEqual('/');
   });
 });

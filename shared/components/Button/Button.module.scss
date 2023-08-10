@@ -1,0 +1,33 @@
+@import '@/theme/variables/colors.scss';
+
+.btn {
+  transition: all 0.2s ease-in-out;
+  border: 0;
+  appearance: none;
+  height: 48px;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.primary {
+  background-color: $primary-blue;
+  color: white;
+}
+
+.secondary {
+  background-color: rgba(65, 137, 230, 0.15);
+  color: $primary-blue;
+}

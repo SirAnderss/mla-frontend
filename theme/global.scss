@@ -29,7 +29,7 @@ main {
   grid-template-columns: repeat(12, 1fr);
   gap: $gap;
   max-width: $app-max-width;
-  min-height: calc(100vh - 48px);
+  min-height: calc(100vh - 72px);
   margin: 0 auto;
 }
 
@@ -49,5 +49,28 @@ textarea:focus {
 
 input::placeholder,
 textarea::placeholder {
+  color: $medium-gray;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $light-gray;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: $gray;
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: $gray;
+}
+
+p {
+  font-size: 0.75rem;
   color: $medium-gray;
 }
