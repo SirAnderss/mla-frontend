@@ -1,4 +1,4 @@
-import BodyContainer from '@/shared/components/BodyContainer';
+import { BodyContainer } from '@/shared/components/BodyContainer';
 import { getItemsList } from './items-page-actions';
 
 export default async function Items({

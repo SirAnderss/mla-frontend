@@ -15,6 +15,15 @@ type UseHandleUtilsProps = {
   items?: IProductItem[];
 };
 
+/**
+ *
+ * @param categories string[] | undefined
+ * @param productPrice { amount: number; currency: string; decimals: number } | undefined
+ * @param productCondition string | undefined
+ * @param items IProductItem[] | undefined
+ * @description This hook is used format the data to be used in the components
+ * @returns Object { breadcrumbs: JSX.Element[], price: string, condition: string, productList: JSX.Element[]}
+ */
 export function useHandleUtils({
   categories,
   productPrice,

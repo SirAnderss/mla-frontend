@@ -1,5 +1,11 @@
 import { IProductItem, IProvider } from '../types/types';
 
+/**
+ *
+ * @param providers IProvider[]
+ * @description This function is used to get the categories from the providers obtained from the API
+ * @returns string[]
+ */
 function handleCategories(providers: IProvider[]): string[] {
   const categories: string[] = [];
 
@@ -19,6 +25,12 @@ function handleCategories(providers: IProvider[]): string[] {
   return [...new Set(categories)];
 }
 
+/**
+ *
+ * @param searchResult Record<string, any>
+ * @description This function is used to format the items obtained from the API
+ * @returns IProductItem[]
+ */
 function handleItems(searchResult: Record<string, any>): IProductItem[] {
   const items: IProductItem[] = [];
 

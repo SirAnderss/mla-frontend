@@ -2,6 +2,11 @@
 
 import { useState, useEffect } from 'react';
 
+/**
+ *
+ * @description This hook is used to get the current window size
+ * @returns Object {width: number | undefined, height: number | undefined}
+ */
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
