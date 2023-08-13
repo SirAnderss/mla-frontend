@@ -38,7 +38,7 @@ describe('getItemsDetail', () => {
 
     expect(response).toEqual(mockResponse);
     expect(getDataFromAPI).toHaveBeenCalledWith({
-      url: 'http://localhost:3000/api/items/MLA123',
+      url: 'https://mla-frontend.vercel.app/api/items/MLA123',
     });
   });
 
